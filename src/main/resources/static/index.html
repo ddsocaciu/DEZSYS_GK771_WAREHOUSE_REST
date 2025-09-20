@@ -76,13 +76,15 @@
                 let filter = $(this).val().toLowerCase();
 
                 $("#tablebody tr").each(function() {
-                    if ($(this).text().toLowerCase().indexOf(filter) > -1) {
+                    let productName = $(this).find("td").eq(1).text().toLowerCase();
+                    if (productName.indexOf(filter) > -1) {
                         $(this).show();
                     } else {
                         $(this).hide();
                     }
                 });
             });
+
 
 
         </script>
