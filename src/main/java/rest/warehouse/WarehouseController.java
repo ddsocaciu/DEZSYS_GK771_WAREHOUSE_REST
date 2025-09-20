@@ -19,7 +19,7 @@ public class WarehouseController {
     	String mainPage = "This is the warehouse application! (DEZSYS_WAREHOUSE_REST) <br/><br/>" +
                           "<a href='http://localhost:8080/warehouse/001/json'>Link to JSON warehouse/001/json</a><br/>" +
                           "<a href='http://localhost:8080/warehouse/001/xml'>Link to XML warehouse/001/xml</a><br/> " +
-                           "  ";
+                          "<a href='http://localhost:8080/index.html'>Link to warehouse table</a><br/>  ";
         return mainPage;
     }
 

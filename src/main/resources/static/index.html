@@ -1,0 +1,90 @@
+<html>
+    <head>
+        <title>Warehouse Table</title>
+        <style>
+            th {
+                padding: 10px 20px;
+            }
+            td {
+                padding: 10px 20px;
+                text-align: center;
+            }
+        </style>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    </head>
+    <body>
+        <h1>Warehouse Table</h1>
+        <div id="warehouseinfos">
+            <p id="id"></p>
+            <p id="warehouseid"></p>
+            <p id="name"></p>
+            <p id="address"></p>
+            <p id="postalcode"></p>
+            <p id="city"></p>
+            <p id="country"></p>
+            <p id="timestamp"></p>
+        </div>
+        <label for="filterProduct">Filter Produktname:</label>
+        <input type="text" id="filterProduct">
+        <table>
+            <thead>
+                <tr>
+                    <th>Product-ID</th>
+                    <th>Product-Name</th>
+                    <th>Product-Category</th>
+                    <th>Product-Quantity</th>
+                    <th>Product-Unity</th>
+                </tr>
+            </thead>
+            <tbody id="tablebody">
+
+            </tbody>
+
+        </table>
+        <script>
+            $.ajax({
+                url: 'http://localhost:8080/warehouse/001/json',
+                method: 'GET',
+                success: function(data) {
+                    $("#id").text(data.warehouseID);
+                    $("#name").text(data.warehouseName);
+                    $("#address").text(data.warehouseAddress);
+                    $("#postalcode").text(data.warehousePostalCode);
+                    $("#city").text(data.warehouseCity);
+                    $("#country").text(data.warehouseCountry);
+                    $("#timestamp").text(data.timestamp);
+
+                    for(let i = 0; i < data.products.length;i++){
+                        let row = $("<tr>");
+                        row.append($("<td>").text(data.products[i].productID));
+                        row.append($("<td>").text(data.products[i].productName));
+                        row.append($("<td>").text(data.products[i].productCategory));
+                        row.append($("<td>").text(data.products[i].productQuantity));
+                        row.append($("<td>").text(data.products[i].productUnity));
+                        $("#tablebody").append(row);
+                    }
+
+                    //console.log(data);
+                },
+                error: function(xhr, status, error) {
+                    // Handle errors here
+                    console.error(status, error);
+                }
+            });
+
+            $("#filterProduct").on("keyup", function() {
+                let filter = $(this).val().toLowerCase();
+
+                $("#tablebody tr").each(function() {
+                    if ($(this).text().toLowerCase().indexOf(filter) > -1) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            });
+
+
+        </script>
+    </body>
+</html>
